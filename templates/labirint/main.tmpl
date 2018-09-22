@@ -1,0 +1,35 @@
+<html><head>
+	<title>Лабиринт</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<STYLE>
+	input		{ font-family : Courier;	font-size	: 8pt;	}
+	select		{ font-family : Courier;	font-size	: 8pt;	}
+	td.messages	{ font-family : Arial;		font-size	: 10pt; }
+	a:link		{ color: blue; }
+	a:visited	{ color: blue; }
+	</STYLE>
+</head><body>
+
+<table border='0' width='950' cellspacing='0' cellpadding='2'>
+<tr valign='top' height='75px'>
+<td width='205' rowspan='2'>
+<TMPL_VAR NAME=MAP>
+<center><TMPL_VAR NAME=NAVY></center>
+</td>
+<td width='*' class="messages" align='justify'>
+<TMPL_IF NAME=LINES>
+<TMPL_LOOP NAME=LINES><TMPL_VAR NAME=LINE></TMPL_LOOP>
+</TMPL_IF>
+</td>
+</tr>
+<tr valign='top' rowspan='2'>
+<td align='left'>
+<TMPL_VAR NAME=USERMAP>
+</td>
+</tr>
+</table>
+
+<TMPL_IF NAME=DUMP><pre><TMPL_VAR NAME=DUMP ESCAPE=HTML></pre></TMPL_IF>
+
+</body>
+</html>

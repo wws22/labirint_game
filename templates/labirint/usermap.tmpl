@@ -1,0 +1,35 @@
+<style>
+td.map		{ font-family : Arial; font-size : 7pt; }
+</style>
+
+<table border='0' cellspacing='0' cellpadding='0' bgcolor='#d0d0d0' width='<TMPL_VAR NAME=TOTAL_WIDTH>'>
+<TMPL_LOOP NAME=PARTS>
+<TMPL_LOOP NAME=ROWS>
+<TMPL_IF NAME=TWALLS>
+<tr height='1px'>
+	<TMPL_LOOP NAME=TWALLS>
+	<td width='1'<TMPL_VAR NAME=CROSS_COLOR>> </td>
+	<td <TMPL_VAR NAME=TDPROP>> </td>
+	<td width='1'<TMPL_VAR NAME=CROSS_COLOR>> </td>
+	</TMPL_LOOP>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=CELLS>
+<tr align='center' height='<TMPL_VAR NAME=CELL_SIZE>px'>
+	<TMPL_LOOP NAME=CELLS>
+	<td<TMPL_VAR NAME=TDPROP>><TMPL_VAR NAME=CELL> </td>
+	</TMPL_LOOP>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=BWALLS>
+<tr height='1px'>
+	<TMPL_LOOP NAME=BWALLS>
+	<td<TMPL_VAR NAME=CROSS_COLOR>> </td>
+	<td <TMPL_VAR NAME=TDPROP>> </td>
+	<td<TMPL_VAR NAME=CROSS_COLOR>> </td>
+	</TMPL_LOOP>
+</tr>
+</TMPL_IF>
+</TMPL_LOOP>
+</TMPL_LOOP>
+</table>

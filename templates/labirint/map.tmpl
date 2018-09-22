@@ -1,0 +1,70 @@
+<style>
+td.map		{ font-family : Arial; font-size : 7pt; }
+td.lmenu	{ font-family : Arial; font-size : 8pt; }
+td.helper	{ font-family : Arial; font-size : 8pt;}
+</style>
+
+<TMPL_IF NAME=SHOW_MAP>
+
+<table align='center' border='0' cellspacing='0' cellpadding='0' bgcolor='#d0d0d0' width='<TMPL_VAR NAME=TOTAL_WIDTH>'>
+<tr height='20px' valign=middle>
+<td colspan='<TMPL_VAR NAME=MAXCOL>' align='center' class='lmenu' bgcolor='#ffffff'><TMPL_IF NAME=CAN_GO><a href='<TMPL_VAR NAME=SCRIPT>?switch_map'></TMPL_IF>Скрыть план лабиринта<TMPL_IF NAME=CAN_GO></a></TMPL_IF></td>
+</tr>
+<tr height='1px'<TMPL_VAR NAME=EXT_WALL_COLOR>>
+	<td colspan='<TMPL_VAR NAME=MAXCOL>'> </td>
+</tr>
+<TMPL_LOOP NAME=ROWS>
+<TMPL_IF NAME=TWALLS>
+<tr height='1px'>
+	<td width='1'<TMPL_VAR NAME=EXT_WALL_COLOR>> </td>
+	<TMPL_LOOP NAME=TWALLS>
+	<td width='1'<TMPL_VAR NAME=CROSS_COLOR>> </td>
+	<td <TMPL_VAR NAME=TDPROP>> </td>
+	<td width='1'<TMPL_VAR NAME=CROSS_COLOR>> </td>
+	</TMPL_LOOP>
+	<td width='1'<TMPL_VAR NAME=EXT_WALL_COLOR>> </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=CELLS>
+<tr align='center' height='<TMPL_VAR NAME=CELL_SIZE>px'>
+	<td<TMPL_VAR NAME=EXT_WALL_COLOR>> </td>
+	<TMPL_LOOP NAME=CELLS>
+	<td<TMPL_VAR NAME=TDPROP>><TMPL_VAR NAME=CELL> </td>
+	</TMPL_LOOP>
+	<td<TMPL_VAR NAME=EXT_WALL_COLOR>> </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=BWALLS>
+<tr height='1px'>
+	<td<TMPL_VAR NAME=EXT_WALL_COLOR>> </td>
+	<TMPL_LOOP NAME=BWALLS>
+	<td<TMPL_VAR NAME=CROSS_COLOR>> </td>
+	<td <TMPL_VAR NAME=TDPROP>> </td>
+	<td<TMPL_VAR NAME=CROSS_COLOR>> </td>
+	</TMPL_LOOP>
+	<td<TMPL_VAR NAME=EXT_WALL_COLOR>> </td>
+</tr>
+</TMPL_IF>
+</TMPL_LOOP>
+<tr height='1px'<TMPL_VAR NAME=EXT_WALL_COLOR>>
+	<td colspan='<TMPL_VAR NAME=MAXCOL>'> </td>
+</tr>
+</table>
+
+<TMPL_ELSE> <!-- ##################################################### -->
+<table align='center' border='0' cellspacing='0' cellpadding='0' bgcolor='#d0d0d0' width='<TMPL_VAR NAME=TOTAL_WIDTH>'>
+<tr height='20px' valign=middle>
+<td colspan='<TMPL_VAR NAME=MAXCOL>' align='center' class='lmenu' bgcolor='#ffffff'><font color='white'><TMPL_IF NAME=CAN_GO><a href='<TMPL_VAR NAME=SCRIPT>?switch_map'></TMPL_IF>Сдаться и посмотреть план.<TMPL_IF NAME=CAN_GO></a></TMPL_IF></font></td>
+</tr>
+<tr height='<TMPL_VAR NAME=HELP_HEIGHT>px' valign='top'>
+<td colspan='<TMPL_VAR NAME=MAXCOL>' class='lmenu' bgcolor='#ffffff' align='justify'>
+<TMPL_IF NAME=HELP>
+<TMPL_LOOP NAME=HELP><TMPL_VAR NAME=LINE></TMPL_LOOP>
+</TMPL_IF>
+</td>
+</tr>
+<tr height='20px'>
+<td colspan='<TMPL_VAR NAME=MAXCOL>' class='lmenu' bgcolor='#ffffff'>&nbsp;</td>
+</tr>
+</table>
+</TMPL_IF>

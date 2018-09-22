@@ -1,0 +1,27 @@
+<html><head>
+	<title>Вход в Лабиринт</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<STYLE>
+	input		{ font-family : Courier;	font-size	: 12pt;	}
+	select		{ font-family : Courier;	font-size	: 12pt;	}
+	submit		{ font-family : Courier;	font-size	: 12pt;	}
+	</STYLE>
+</head><body>
+  <h1 align='center'>Введите имя пользователя и пароль</h1>
+
+<TMPL_IF NAME=USEREXISTS>
+<center><font color='red'>Такой логин уже зарегистрирован!</font></center>
+</TMPL_IF>
+
+<form action='<TMPL_VAR NAME=SCRIPT>?login' method='POST'>
+<table border='0' align='center'><tr>
+<td>Логин:</td><td><input type='text' name='login' value='<TMPL_VAR NAME=LOGIN>' width='16'/></td>
+</tr><tr>
+<td>Пароль:</td><td><input type='password' name='password' width='16'/></td>
+</tr><tr><td colspan='2' align='center'>
+<input type='image' name='enter' src='/labirint_login.gif' width='250' height='30'/>
+</td></tr><table>
+</form>
+
+</body>
+</html>
