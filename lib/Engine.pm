@@ -5,7 +5,7 @@ package Engine;
 
 require Exporter; @ISA=qw{Exporter}; @EXPORT=qw{}; @EXPORT_OK=qw{};
 
-use config;		push @EXPORT, qw{DEBUG LOGFILE LOGSTACK CHARSET TEMPLATES_DIR};
+use config;		push @EXPORT, qw{DEBUG LOGFILE LOGSTACK CHARSET TEMPLATES_DIR PORT QUEUE_LENGTH};
 use Engine::Globals;	push @EXPORT, qw{SILENT ERROR WARNING TRACE INFO};
 use Engine::Debuger;	push @EXPORT, qw{&error &warning &trace &info &Dumper};
 use Engine::Request;
@@ -17,9 +17,9 @@ use strict;
 
 sub Run {
   my @parent_params = @_; # Additional Engine parameters from parent
-   
   my $count = 0;
-  my $FCGIReq = FCGI::Request(\*STDIN, \*STDOUT, \*STDERR, \%ENV);
+  my $socket = FCGI::OpenSocket(":".PORT, QUEUE_LENGTH);
+  my $FCGIReq = FCGI::Request(\*STDIN, \*STDOUT, \*STDERR, \%ENV, $socket);
   my $Engine = new Engine( $FCGIReq );
 
   if(@parent_params){ # Additional params from perl-script reached
@@ -28,10 +28,10 @@ sub Run {
 	my %hash = @parent_params;
 	$Engine->parent(\%hash);
         if(exists($Engine->parent->{header})){
-	  foreach my $k (keys %{$Engine->parent->{header}}) {
-		$Engine->headers->{$k} = $Engine->parent->{header}->{$k};	
-	  }
-	}
+            foreach my $k (keys %{$Engine->parent->{header}}) {
+                $Engine->headers->{$k} = $Engine->parent->{header}->{$k};
+            }
+        }
     }
     else{ warning "Additional Engine parameters are not loaded!"; }
   }else{
@@ -40,18 +40,21 @@ sub Run {
 
   while($Engine->fcgireq->Accept() >= 0) {
     $Engine->count(++$count);
-    my $Request =  new Engine::Request( $Engine );
-    if($Request->can('main')){
-	trace $Request.'->main('.$Request->fullname.') starting';
-	eval { $Request->main() }; $Request->fail(join('',$@)) if ($@);
-	trace $Request.'->main('.$Request->fullname.') finished';
-	unless( $Request->is_fail() ){
-	  $Request->output();
-	}else{
-	  $Request->cleanup() if $Request->can('cleanup');
-	}
-    }else{
-	$Request->fail($Request.' Failed! Perhaps You forgot describe main()');
+    my $Request = new Engine::Request($Engine);
+    if ($Request->can('main')) {
+        trace $Request . '->main(' . $Request->fullname . ') starting';
+        eval {$Request->main()};
+        $Request->fail(join('', $@)) if ($@);
+        trace $Request . '->main(' . $Request->fullname . ') finished';
+        unless ($Request->is_fail()) {
+            $Request->output();
+        }
+        else {
+            $Request->cleanup() if $Request->can('cleanup');
+        }
+    }
+    else {
+        $Request->fail($Request . ' Failed! Perhaps You forgot describe main()');
     }
     $Request = undef; # Destroy request object
     $Engine->log->flush();

@@ -2,8 +2,12 @@
 #
 # $Header: /var/lib/cvsd/root/game/web/cgi/labirint.cgi,v 1.14 2007/02/28 10:35:22 wws Exp $
 #
+# docker run -p8888:5000 -it --rm --name labirint -v "$PWD":/usr/src/labirint -w /usr/src/labirint wws22/labirint perl ./web/cgi/labirint.cgi
+#
 use strict;
 use warnings;
+use FindBin;
+use lib '/usr/src/labirint/lib';
 use Labirint::Object;
 use Labirint::Object::User;
 use Labirint::Object::Player;
@@ -36,6 +40,7 @@ use Engine; Engine::Run( #no_login => 1,
 use constant MAX_WALLS => 10;		# Maximum for internal walls (max=20)
 use constant USER_OBJ_PREFIX => 'User_';# Real World object prefix
 use constant LSIZE => 5;		# Labirint square size
+use constant SAVED => "labirint.save"; # Filename for saved file with RealWorld
 
 sub main {
   my $self = shift;
@@ -48,8 +53,14 @@ sub main {
     trace 'Use existing RealWorld';
     $RealWorld = $self->real_world;
   }else{
-    trace 'Create new RealWorld';
-    $RealWorld = new Labirint::World();
+    if( -e SAVED ){
+        trace 'Load RealWorld from file';
+        $RealWorld = Labirint::World->load(SAVED);
+    }
+    unless($RealWorld){
+        trace 'Create new RealWorld';
+        $RealWorld = new Labirint::World();
+    }
     $self->real_world($RealWorld);
   }
 
@@ -202,7 +213,8 @@ sub do_login {
 	$User = new Labirint::Object::User( -id => USER_OBJ_PREFIX.$p->{login} );
 	$User->login($p->{login});
 	$User->password($password);
-	$RealWorld->add($User); 
+	$RealWorld->add($User);
+          $RealWorld->save(SAVED);
       }
     }
     # Login

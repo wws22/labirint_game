@@ -12,7 +12,7 @@ use vars qw(@ISA);
 @ISA = qw(Labirint::Object);
 use warnings;
 
-use constant SHA_FILLER => 'long filler for creating unique sha1 check-string';
+use constant SHA_FILLER => 'my long filler for creating unique sha1 check-string';
 
 sub new {
     # Create object
@@ -43,7 +43,7 @@ sub generate_key {
   return Digest::SHA1::sha1_hex( 
 	$self->login.':'.
 	$password.':'.
-	$ENV{'REMOTE_ADDR'}.':'.
+	#$ENV{'REMOTE_ADDR'}.':'.
 	SHA_FILLER
   );
 }
@@ -55,7 +55,7 @@ sub check_key {
   my $true_key = Digest::SHA1::sha1_hex( 
 	$self->login.':'.
 	$self->password.':'.
-	$ENV{'REMOTE_ADDR'}.':'.
+	#$ENV{'REMOTE_ADDR'}.':'.
 	SHA_FILLER
   );
   return ($key eq $true_key);

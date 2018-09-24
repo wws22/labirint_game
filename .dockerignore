@@ -1,0 +1,3 @@
+.git*
+logs/*
+hosts.conf.orig

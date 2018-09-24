@@ -319,7 +319,7 @@ sub template {
 	if( -e TEMPLATES_DIR.'/'.$filename ){
 	  $template = HTML::Template->new(
 		filename => $filename,
-		shared_cache => 1,
+		shared_cache => 0,
 		#shared_cache_debug => 1, # INTERNAL DEBUG
 		global_vars => 1,
 		loop_context_vars => 1,
