@@ -319,7 +319,7 @@ sub show_labirint {
   my $p; # Template params
   my $Player = $self->world->find('Player');
   my ( $cx, $cy ) = ( $Player->x , $Player->y );
-  my $cell_size = 35;   # pixels
+  my $cell_size = 44;   # pixels
   $p->{help_height}  =  300; # map tr in pixels for helper
   $p->{total_width} = LSIZE * ($cell_size+2) + 2;
   $p->{cell_size} = $cell_size;
@@ -704,7 +704,7 @@ sub build_labirint {
     $Cell->type('птеродактель');
     $Cell->health(4);
     $Cell->animal_name('птеродактеля');
-    $Cell->hidden_type('птеро-<br>дактель');
+    $Cell->hidden_type('птеро-<br>дакт.');
     $Cell->umap_type($Cell->short_type);
   }
 
@@ -785,7 +785,7 @@ sub usermap {
   my $Player = $self->world->find('Player');
   return '' if $Player->is('begin_game');
   my ( $p_x, $p_y ) = ( $Player->p_x , $Player->p_y );
-  my $cell_size = 35;   # pixels
+  my $cell_size = 40;   # pixels
   $p->{cell_size} = $cell_size;
   my $mark_wall = " bgcolor='red'";
   $p->{cross_color} = " bgcolor='grey'"; # Crosspoint color

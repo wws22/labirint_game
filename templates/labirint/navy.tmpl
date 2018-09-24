@@ -1,27 +1,27 @@
 <style>
-td.stats { font-family : Arial; font-size : 8pt; }
-td.navy  { font-family : Arial; font-size : 8pt; }
-td.emenu { font-family : Arial; font-size : 8pt; }
+td.stats { font-family : Arial; font-size : 10pt; }
+td.navy  { font-family : Arial; font-size : 12pt; }
+td.emenu { font-family : Arial; font-size : 12pt; }
 </style>
 
-<table align='center' border='0' cellspacing='0' cellpadding='1' width='200'>
+<table align='center' border='0' cellspacing='0' cellpadding='1' width='250'>
 <tr align='center' height='25px' valign='bottom'>
-	<td colspan='3' class='navy'><TMPL_IF NAME=CAN_GO><a href='<TMPL_VAR NAME=SCRIPT>?go_up'></TMPL_IF>Вверх<TMPL_IF NAME=CAN_GO></a></TMPL_IF></td>
+	<td colspan='3' class='navy'><TMPL_IF NAME=CAN_GO><a href='<TMPL_VAR NAME=SCRIPT>?go_up'></TMPL_IF><font size="5">Вверх</font><TMPL_IF NAME=CAN_GO></a></TMPL_IF></td>
 </tr>
 <tr align='center' height='20px' valign='bottom'>
-	<td width='70' align='right' class='navy'><TMPL_IF NAME=CAN_GO><a href='<TMPL_VAR NAME=SCRIPT>?go_left'></TMPL_IF>Влево<TMPL_IF NAME=CAN_GO></a></TMPL_IF></td>
-	<td width='50' class='navy'> <!--TMPL_VAR NAME=STEPS--></td>
-	<td width='70' align='left' class='navy'><TMPL_IF NAME=CAN_GO><a href='<TMPL_VAR NAME=SCRIPT>?go_right'></TMPL_IF>Вправо<TMPL_IF NAME=CAN_GO></a></TMPL_IF></td>
+	<td width='80' align='right' class='navy'><TMPL_IF NAME=CAN_GO><a href='<TMPL_VAR NAME=SCRIPT>?go_left'></TMPL_IF><font size="5">Влево</font><TMPL_IF NAME=CAN_GO></a></TMPL_IF></td>
+	<td width='40' class='navy'> <!--TMPL_VAR NAME=STEPS--></td>
+	<td width='70' align='left' class='navy'><TMPL_IF NAME=CAN_GO><a href='<TMPL_VAR NAME=SCRIPT>?go_right'></TMPL_IF><font size="5">Вправо</font><TMPL_IF NAME=CAN_GO></a></TMPL_IF></td>
 </tr>
 <tr align='center' height='20px' valign='bottom'>
-	<td colspan='3' class='navy'><TMPL_IF NAME=CAN_GO><a href='<TMPL_VAR NAME=SCRIPT>?go_down'></TMPL_IF>Вниз<TMPL_IF NAME=CAN_GO></a></TMPL_IF></td>
+	<td colspan='3' class='navy'><TMPL_IF NAME=CAN_GO><a href='<TMPL_VAR NAME=SCRIPT>?go_down'></TMPL_IF><font size="5">Вниз</font><TMPL_IF NAME=CAN_GO></a></TMPL_IF></td>
 </tr>
 <tr height='10px'>
 	<td colspan='3'> </td>
 </tr>
 </table>
 
-<table align='center' border='1' cellspacing='0' cellpadding='2' width='200'>
+<table align='center' border='1' cellspacing='0' cellpadding='2' width='250'>
 <tr>
 	<td class='stats'>Патронов:</td>
 	<td class='stats'>
@@ -58,7 +58,7 @@ td.emenu { font-family : Arial; font-size : 8pt; }
 
 </tr>
 </table>
-<table align='center' border='0' cellspacing='0' cellpadding='2' width='200'>
+<table align='center' border='0' cellspacing='0' cellpadding='2' width='250'>
 <tr height='10px'><td colspan='2'> </td></tr>
 <tr>
 	<td align='left'  class='emenu'><TMPL_IF NAME=IS_ALIVE><a href='<TMPL_VAR NAME=SCRIPT>?logout'>Отложить игру</a><TMPL_ELSE><a href='<TMPL_VAR NAME=SCRIPT>?logout'>Закончить игру</a></TMPL_IF>
