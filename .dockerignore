@@ -1,3 +1,4 @@
 .git*
 logs/*
 hosts.conf.orig
+labirint.save
