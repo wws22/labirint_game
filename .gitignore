@@ -1,3 +1,3 @@
 *.save
-logs/*
+logs/app_log
 
